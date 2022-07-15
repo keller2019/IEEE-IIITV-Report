@@ -1,0 +1,30 @@
+\section{Introduction}
+%\section{Introduction}\label{ch:ch1}
+One of the most important research directions in cryptography is the design and implementation of lightweight cryptographic algorithms. The use of low-power, resource-limited devices has exploded in the last two decades. The reduction of the state size reduces the power consumption of the cipher. So it becomes a very challanging work for the community.The design principle of these lightweight stream ciphers differs significantly from the design principle of the standard stream ciphers.
+
+Grain is a stream cipher submitted to eSTREAM in 2004 by Martin Hell, Thomas Johansson and Willi Meier. The design of Grain v1 deals with less number of hardware required. The Cipher is very useful where gate count, power consuption and memory is very limited. 
+
+An RFID tag is a typical example of a product where the amount of memory and power is very limited. These are microchips capable of transmitting an identifying sequence upon a request from a reader. Forging an RFID tag can have devastating consequences if the tag is used e.g. in electronic payments and hence, there is a need for cryptographic primitives implemented in these tags. Today, a hardware implementation of e.g. AES on an RFID tag is not feasible due to the large number of gates needed. Grain is a stream cipher primitive that is designed to be very easy and small to implement in hardware.
+
+It is based on two shift registers and a nonlinear output function. The cipher has the additional
+feature that the speed can be increased at the expense of extra hardware.The key size is 80 bits
+and the IV size is specified to be 64 bits. The cipher is designed such that no attack faster than
+exhaustive key search should be possible, hence the best attack should require a computational
+complexity not significantly lower than $2^{80}$.
+
+Grain cipher is designed on specific properties. we can understand that it is not possible to have
+a design that is perfect for our all purposes i.e., processors of all words lengths, all hardware
+applications, all memory constraints etc. Grain is designed to be very small in hardware, using
+less number of logic gates and maintain high security. we can use Grain in general application
+software, when high speed in software is required . Because of this it does make sense to compare
+Grain with other cipher.
+
+Grain provides a higher security than several other well known ciphers intended to be used in
+hardware applications. Well known examples of such ciphers are E0 used in Bluetooth and A5/1
+used in GSM.
+
+In FSE 2015, Armknecht and Mikhalev however proposed the stream cipher Sprout with a Grain-like architecture, whose internal state was equal in size with its secret key and yet resistant against TMD attacks. Although Sprout had other weaknesses, it germinated a sequence of stream cipher designs like Lizard and Plantlet with short internal states. Both these designs have had cryptanalytic results reported against them. In this paper, we propose the stream cipher Atom that has an internal state of 159 bits and offers a security of 128 bits. Atom uses two key filters simultaneously to thwart certain cryptanalytic attacks that have been recently reported against keystream generators.
+
+In addition, we found that our design is one of the smallest stream ciphers that offers this security level, and we prove in this paper that Atom resists all the attacks that have been proposed against stream ciphers so far in literature. On the face of it, Atom also builds on the basic structure of the Grain family of stream ciphers. However, we try to prove that by including the additional key filter in the architecture of Atom we can make it immune to all cryptanalytic advances proposed against stream ciphers in recent cryptographic literature.
+
+The paper is organized as follows. Section 2 provides a detailed discription of stream ciphers. Section 3 gives the Design of Grain V1 and The design and implimention of Atom is discussed in Section 4. In Section 5, concludes the paper.

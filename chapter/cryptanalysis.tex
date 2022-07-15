@@ -1,0 +1,30 @@
+\section{Cryptoanalysis}
+we consider some general attacks on stream ciphers and investigate to which extent they can be applied to grain. Resistance is the most important property of a new cipher. There should be no attack faster than exhaustive key search.
+Initial cryptanalytic attempts are --
+\subsection{Correlations}
+The bits in the LFSR are exactly balanced because of statistical properties of maximum-length LFSR sequences. As the feedback g(x) is xored with an LFSR-state, the bits in the NFSR are balanced. Moreover, recall that g(x) is a balanced function. Therefore, the bits in the NFSR may be assumed to be uncorrelated to the LFSR bits. One input comes from the NFSR and as h(x) is xored with 7 state bits of the NFSR, correlations of the output of the generator to sums of LFSR bits will be small enough to prevent the attacks.
+\subsection{Algebraic Attack}
+Algebraic attacks will not work for solving for the initial 160 bit state of the full generator, as the update function of the NFSR is nonlinear, and the later state bits of the NFSR as a function of the initial state bits will have varying but large algebraic degree. As the filter function h(x) has one input coming from the NFSR, and h(x) is xored with a linear combination of NFSR-state bits, the algebraic degrees of the output bits when expressed as a function of LFSR-bits, are large in general, and varying in time. This will defeat algebraic attacks.
+\subsection{Time/Memory/Data Tradeoff Attack}
+Cost of TMD tradeoff attacks = $O(2^{n/2})$                                        where  n = no. of inner states of stream cipher\\
+the sampling resistance of $h(x)$ is reasonable. This function does not become linear in the remaining variable by fixing less than 3 of its 5 variables. Similarly, the variables occurring in monomials of $g(x)$ are sufficiently disjoint. Hence the resulting sampling resistance is large, and this TMD tradeoff attacks are expected to have complexity not lower than $O(2^{80})$.                                         where n = 160.
+
+\subsection{Chosen-IV Attack}
+A necessary condition for defeating differential-like or statistical chosen-IV attacks is that the initial states for any two chosen IV’s (or sets of IV’s) are algebraic and statistically unrelated. The number of cycles in key initialization has been chosen so that the Hamming weight of the difference in the full initial 160-bit state for two IV’s after initialization is close to random.
+Improve the efficiency of the key initialization by just decreasing the no. of initial clockings. After only 80 clocks, all bits in the state will depend on both the key and the IV. However, in a chosen-IV attack is it possible to reinitialize the cipher with the same key but with an IV that differs in only one position from the pervious IV. Consider the case when the number of initial clockings is 80 and the last bit of the IV is flipped i.e., $s_{63}$ is flipped. This is the event that occurs if the IV is chosen as a sequence number. The bit $s_{63}$ is not used in the feedback or in the filter function, hence, the first register update will be the same in both
+cases. Consequently, the bit $s_0$ will be the same in both initializations. In the next update, the flipped bit will be in position $s_{62}$. Let x be the input variables to the output function, O, after the first initialization and let $x_\Delta$ be the input variables to the output function after the second initialization. Now, compute the distribution of $P(x,x_\Delta)$. If this distribution is biased, it is likely that the distribution of the difference in the
+first output bit,
+\begin{equation}
+	P(O(x)) \oplus O(x_\Delta)),
+\end{equation} 
+
+Is biased. Assume that
+\begin{equation}
+P(O(x) \oplus O(x_\Delta)=0)=\frac{1}{2}+\epsilon,
+\end{equation} 
+then the number of initializations we need will be in the order of $\frac{1}{\epsilon^2} $.This attack shows that it is preferred that the probability that any state bit is the same after initialization with two different IVs should be close to 0.5. As with the case of 80 initialization clocks, it is easy to show that after 96, 112 and 128 there are also state bits that will always be the same or that will always differ.
+
+\subsection{Fault Attack}
+Fault Attacks is the strongest attacks. The attackers can apply some bit flipping faults to one of the bit two feedback registers at his will. However, he has only partial control over their number, location, and exact timing, and similarly on what concerns his knowledge. A stronger assumption can be that he is able to flip a single bit. He can reset the device to its original state and then apply another randomly chosen fault to the device. The aim is to study input-output properties for h(x), and to derive information on the 5 inputs, out
+of known input-output pairs (similar as for S-boxes in differential cryptanalysis of DES). As long as the difference induced by the fault in the LFSR does not propagate to position $b_i+63$, the difference observed in the output of the cipher is coming from inputs of h(x) from the LFSR alone. If an attacker is able to reset
+the device and to induce a single bit fault many times and at different positions that he can correctly guess from the output difference, we cannot preclude that he will get information about a subset of the state bits in the LFSR. Faults in the NFST propagate nonlinearly and their evolution will be harder to predict. Thus, a fault attack on the NFSR seems more difficult.

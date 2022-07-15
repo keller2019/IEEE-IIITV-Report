@@ -1,0 +1,82 @@
+\section{Grain V1 Cipher}
+%\section{Grain V1}\label{ch:ch2}
+Martin Hell, Thomas Johansson, and Willi Meier  submitted Grain [\cite{hell2007grain}] as a stream cipher to eSTREAM in 2004. The design of Grain v1 deals with less number of hardware required. The Cipher is very useful where gate count, power consuption and memory is very limited.\\[2mm]
+It is based on two shift registers and a nonlinear output function. The cipher has the additional feature that the speed can be increased at the expense of extra hardware.The key size is 80 bits and the IV size is specified to be 64 bits. The cipher is designed such that no attack faster than exhaustive key search should be possible, hence the best attack should require a computational complexity not significantly lower than $2^{80}$ .\\[2mm]
+Grain provides a higher security than several other well known ciphers intended to be used in hardware applications. Well known examples of such ciphers are E0 used in Bluetooth and A5/1 used in GSM.
+
+
+\subsection{ Design Specification}
+The cipher consists of three main building blocks, namely an
+LFSR, an NFSR and an output function. The content of the LFSR is denoted by $s_i , s_{i+1} , . . . , s_{i+79} $ and the content of the NFSR is denoted by $b_i , b_{i+1} , . . . , b_{i+79} $.
+The feedback polynomial of the LFSR, $f (x)$ is a primitive polynomial of degree 80. It is defined as
+
+\begin{equation}
+f(x)=1+x^{18}+x^{29}+x^{42}+x^{57}+x^{67}+x^{80}
+\end{equation}
+
+To remove any possible ambiguity we also define the update function of the LFSR as
+\begin{equation}
+s_{i+80}=s_{i+62}+s_{i+51}+s_{i+38}+s_{i+23}+s_{i+13}+s_{i}
+\end{equation}
+\\
+The feedback polynomial of the NFSR is 
+\begin{multline}
+	g(x) = 1 + x^{18} + x^{20} + x^{28} + x^{35} + x^{43} + x^{47} + x^{52} + x^{59} + x^{66} + x^{71} + x^{80} + x^{17}x^{20} + x^{43}x^{47} \\ + x^{65}x^{71} + x^{20}x^{28}x^{35} + x^{47}x^{52}x^{59} + x^{17}x^{35}x^{52}x^{71} + x^{20}x^{28}x^{43}x^{47} + x^{17}x^{20}x^{59}x^{65} \\+ x^{17}x^{20}x^{28}x^{35}x^{43} + x^{47}x^{52}x^{59}x^{65}x^{71} + x^{28}x^{35}x^{43}x^{52}x^{59}
+\end{multline}
+
+ Again, to remove any possible ambiguity we also write the update function of the NFSR.
+\begin{multline}
+	b_{i+80} = s_{i} + b_{i+62} + b_{i+60} + b_{i+52} + b_{i+45} + b_{i+37} + b_{i+33} + b_{i+28} + b_{i+21} + b_{i+14} + b_{i+9} + b_{i} +\\ b_{i+36}b_{i+60} + b_{i+37}b_{i+33} + b_{i+15}b_{i+9} + b_{i+60}b_{i+52}b_{i+45} + b_{i+33}b_{i+28}b_{i+21} + b_{i+63}b_{i+45}b_{i+28}b_{i+9}\\ + b_{i+60}b_{i+52}b_{i+37}b_{i+33} + b_{i+63}b_{i+60}b_{i+21}b_{i+15} + b_{i+63}b_{i+60}b_{i+52}b_{i+45}b_{i+37} \\+ b_{i+33}b_{i+28}b_{i+21}b_{i+15}b_{i+9} + b_{i+52}b_{i+45}b_{i+37}b_{i+33}b_{i+28}b_{i+21}
+\end{multline}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=200px]{cipher1.png}
+	\caption{The Cipher}
+\end{figure}
+The contents of the two shift registers represent the state of the cipher. h(x) is a filter function. This filter function is chosen to be balanced, correlation immune of the first order and has algebric degree 3. The nonlinearity is the highest possible for these functions. The input taken both from the LFSR and from the NFSR. The function is defined as
+\begin{equation}
+	h(x) = x_1+x_4+x_{0}x_{3}+x_{2}x_{3}+x_{3}x_{4}+x_{0}x_{1}x_{2}+x_{0}x_{2}x_{3}+x_{0}x_{2}x_{4}+x_{1}x_{2}x_{4}+x_{2}x_{3}x_{4}
+\end{equation}
+where the variables $x_0$ ,$ x_1$ , $x_2$ , $x_3$ and$ x_4 $correspond to the tap positions $s_{i+3} $,
+$s_{i+25}$ ,$ s_{i+46} $,$ s_{i+64} $and $b_{i+63} $respectively. The output function is taken as
+\begin{equation}
+	z_i = \sum_{k \in A}b_{i+k}+h(s_{i+3},s_{i+25},s_{i+46},s_{i+64},s_{i+63})
+\end{equation}
+where $A =\{1,2,4,10,31,43,56\}$.
+\subsection{ Key Initialization}
+Before any kind of key stream is generated the cipher is initialised with the key and the IV. Let the bits of key is denoted by k and The bits of IV is denoted by IV. First load the NFSR with the key bits, $b_i = k_i$, for $0 \leq i \leq 79$ , then load the 64 bits with LFSR with the IV, $s_i = IV_i$ for $0 \leq i \leq 63$. The Remaining bits of LFSR is filled with ones, $s_i=1$ for $64 \leq i \leq 79$. Because of this the LFSR cannot be initialised to the all zero state. Then the cipher is clocked 160 times without producing any running key. Instead the output function is feedback and xored with the input, both to the LFSR and to the NFSR. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=200px]{cipher2.png}
+	\caption{The Key Intialization}
+\end{figure}
+
+\subsection{Design Criteria}
+The main goal was to design an algorithm which is very simple to implement in hardware, requires only a small chip area, lower gate count , and limited memory also.
+The security requirements correspond to the computational complexity of $2 ^ {80}$, so it is necessary to build the cipher with  160-bit memory.
+in the making of grain cipher we have to  maintaining its small size so we have to minimize the function that work together with memory. But they have enough in numbers also to maintains the security of a  cipher.
+\\[1mm]
+The LFSR in the cipher is of size 80 bits so it produces an output with period $2^{80} - 1$ with the probability of 
+\begin{equation}
+\frac{2^{80}-1}{2^{80}}=1-2^{-80}
+\end{equation}
+To make  the NFSR state is balanced the input of NFSR is masked with the output of the LFSR.The filter function $h(x)$,is quite small with 5 variables and nonlinearity is equal to 12. If the cipher needs to be restart frequently with a  new IV, initialization efficiency  is a potential barrier.
+
+\subsection{Throughput rate:}
+Both shift registers namely LFSR and NFSR are regularly clocked so the cipher will output 1 bit/clock.  It can be seen that the feedback shift registers NFSR and LFSR maximum shifts 16 bits per clock cycle[\cite{feldhofer2007comparison}] .
+Before initialization the LFSR contains the IV with 64 bits$\{iv_0,iv_1,....iv_{63}.\}$ and 16 ones, $s_i=1, 64 \leq i \leq 79$ as we seen in previous key intization part.For an initialization with two  different IV 
+, which differ by only one bit, the probability that a shift register bit 
+is the same for both initializations should be close to 0.5.\\[2mm]
+To simplify this implementation, the last 15 bits of the shift registers, $s_i=1$, $65 \leq i \leq 79$ are not used in the feedback functions or in the input of the filter function. This allows the speed to be easily are multiplied to 16 if enough hardware material is available.
+In the shift register when the speed is increased by a factor t each bit of shift registers is shifted t step instead of one.. Then the number of clockings used in the key initial-zation is $160/t$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=200px]{cipher3.png}
+	\caption{The Cipher when speed is doubled.}
+\end{figure}
+
+\subsection{Strength and limitations}
+Grain cipher is designed on specific properties. we can understand that it is not possible to have a design that is perfect for our all purposes i.e., processors of all words lengths, all hardware applications, all memory constraints etc. Grain is designed to be very small in hardware, using less number of logic gates and maintain high security. we can use Grain in general application software, when high speed in software is required . Because of this it does make sense to compare Grain with other cipher. \\
+
+The basic implementaion has rate 1 bit/clock cycle. The speed of a word oriented cipher is higher than a bit oriented cipher. Grain is a bit oriented due to the focus on small hardware complexity and this is compensated by the possibility to increase the speed at the cost of more hardware.
+

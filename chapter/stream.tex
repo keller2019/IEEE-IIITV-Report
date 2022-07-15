@@ -1,0 +1,35 @@
+\section{Steam cipher}
+%\section{Stream cipher}\label{ch:ch2}
+A stream cipher[\cite{Jiao2020}] is a symmetric key cipher in which the plaintext digits are combined with a pseudo-random cipher stream (key stream). In a stream cipher, each plaintext digit is individually encrypted with the corresponding digit of the key stream to produce one digit of the ciphertext stream. Since the encryption of each digit depends on the current state of the encryption, it is also known as state encryption. In practice, a digit is typically a bit and the combination operation is an exclusive or (XOR). \\[3mm]
+The pseudo-random key stream is typically generated serially from a random initial value using digital shift registers. The seed value is used as a cryptographic key to decrypt the ciphertext stream. Stream ciphers represent a different approach to symmetric ciphers than block ciphers. Block ciphers work with large blocks of digits with a fixed and immutable transformation. This distinction is not always clear cut: in some modes, a block cipher primitive is used in such a way that it functions effectively as a stream cipher. Stream ciphers typically run at a higher speed than block ciphers and have less hardware complexity. However, stream ciphers can be vulnerable to security breaches (see Stream cipher attacks); B. if the same start state (seed) is used twice.
+\subsection{Idea Behind the Stream Cipher}
+A surprisingly easy idea enters the picture: we can encrypt a message using a key by performing a basic XOR operation. imagine we have two parties, Alice and Bob. Alice is the sender \& Bob is Receiver.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=200px]{Grain-1.jpg}
+	\caption{Grain-V1 Basic Analogy}
+\end{figure}
+\\Basic encryption requires three main components:
+\begin{enumerate}
+	\item {A message, document or piece of data}
+	\item {A key}
+	\item {An encryption algorithm}
+\end{enumerate}
+
+The key typically used with a stream cipher is known as a one-time padding Algorithm. Mathematically, a one-time padding is unbreakable because it's always at least the exact same size as the message it is encrypting.\\
+
+Here is an example to illustrate the one-timed padding process of stream ciphering: Person A attempts to encrypt a 10-bit message using a stream cipher. The one-time pad, in this case, would also be at least 10 bits long. This can become cumbersome depending on the size of the message or document they are attempting to encrypt. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=200px]{Grain-4.png}
+	\caption{Stream Cipher Demonstration}
+\end{figure}
+
+\textbf{Security steps }
+\begin{enumerate}
+	\item {len(K) $\geq$ len(M)}
+	\item {K can not be repeated to encrypting two different message.}
+	\item {K should be selected randomly.}
+\end{enumerate}
+
+

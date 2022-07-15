@@ -1,0 +1,254 @@
+\documentclass[10pt,a4paper,openright]{IEEEtran}
+%\documentclass[conference]{IEEEtrans}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%PACKAGES%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\usepackage{xcolor}
+%%%%%%%%%%%%%%%%%%%%%%%Define colors%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+\definecolor{heading}{RGB}{34, 69, 33}
+\definecolor{subheading}{RGB}{34, 69, 33}
+\definecolor{subsubheading}{RGB}{34, 69, 33}
+\definecolor{link}{RGB}{34, 69, 33}
+\definecolor{cite}{RGB}{34, 69, 33}
+\definecolor{url}{RGB}{34, 69, 33}
+%\usepackage{algorithm}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{times}
+\usepackage{algorithmic}
+\usepackage[ruled,vlined]{algorithm2e}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{sectsty}
+\chapterfont{\color{heading}}  % sets colour of chapters
+\sectionfont{\color{cyan}}  % sets colour of sections
+\subsectionfont{\color{violet}}
+\subsubsectionfont{\color{green}}
+\usepackage[hmargin=0.7in,vmargin=0.7in]{geometry}
+\usepackage{cite}
+\usepackage{graphicx}\graphicspath{{Image/}}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath,amssymb,amsfonts,url,amsthm}
+\usepackage{setspace}
+\usepackage{subcaption}
+%\usepackage[sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks,linkcolor={cyan},citecolor={red},urlcolor={blue}}
+\usepackage{cleveref}
+\usepackage{fancyhdr}\pagestyle{fancy}
+\fancyhf{}
+
+\usepackage{cuted}
+\fancyhead[LO]{\it{\nouppercase{\rightmark}}}
+%\fancyhead[LE,RO]{\thepage}
+\fancyfoot{}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{emptypage}
+%Defining chapter style
+
+%chapter style ends
+\usepackage[nottoc]{tocbibind}
+\renewcommand{\lstlistingname}{Code}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%DEFINE STYLE %%%%%%%%%%%%%%%%%
+\lstdefinestyle{chstyle}{%
+	backgroundcolor=\color{gray!12},
+	basicstyle=\ttfamily\small,
+	commentstyle=\color{red!30},
+	keywordstyle=\color{magenta},
+	stringstyle=\color{blue!50!red},
+	showstringspaces=false,
+	captionpos=b,
+	numbers=left,
+	numberstyle=\footnotesize\color{gray},
+	numbersep=10pt,
+	stepnumber=1,
+	tabsize = 1,
+	frame=l,
+	framerule=1pt,
+	rulecolor=\color{red};
+}
+%%% Define Section
+\mdfdefinestyle{question}{
+	innertopmargin=1.2\baselineskip,
+	innerbottommargin=0.8\baselineskip,
+	roundcorner=5pt,
+	nobreak,
+	singleextra={%
+		\draw(P-|O)node[xshift=1em,anchor=west,fill=yellow,draw,rounded corners=5pt]{%
+			Note  };
+	},
+}
+
+
+\newcounter{Question} % Stores the current question number that gets iterated with each new question
+
+% Define a custom environment for numbered questions
+\newenvironment{question}[1][\unskip]{
+	\bigskip
+	\stepcounter{Question}
+	\newcommand{\questionTitle}{~#1}
+	\begin{mdframed}[style=question]
+	}{
+	\end{mdframed}
+	\medskip
+}
+\mdfdefinestyle{theorm}{
+	innertopmargin=1.2\baselineskip,
+	innerbottommargin=0.8\baselineskip,
+	roundcorner=5pt,
+	nobreak,
+	singleextra={%
+		\draw(P-|O)node[xshift=1em,anchor=west,fill=red,draw,rounded corners=5pt]{%
+			Theorm  };
+	},
+}
+
+
+\newcounter{theorm} % Stores the current question number that gets iterated with each new question
+
+% Define a custom environment for numbered questions
+\newenvironment{theorm}[1][\unskip]{
+	\bigskip
+	\stepcounter{theorm}
+	\newcommand{\questionTitle}{~#1}
+	\begin{mdframed}[style=theorm]
+	}{
+	\end{mdframed}
+	\medskip
+}
+%%
+
+\usepackage{eso-pic}
+\AddToShipoutPictureBG*{%
+	\AtPageUpperLeft{%
+		\hspace{20pt}
+		\raisebox{-140pt}{\includegraphics[scale=0.30]{logo}}
+		
+	}
+}
+%%%%%%%%%%%%%%%%%%%%%%Tilte and Author %%%%%%%%%%%%%%%%%%%%%%
+\title {\LARGE{ \textbf{  \quad  Indian Institute of Information Technology Vadodara\\ (Gandhinagar Campus) \\[5mm] \LARGE { Summer Research Internship Program } \\ [5mm] \large{Programming Skill Assessment for acedemics students} }} }
+
+%\author{Sagar Ved Bairwa [201951131]\\ Yash Beniwal [201951175] \\ Yash Jain [201951176]\\[15mm] Project Coordinator: Dr. pramit mazumdar}
+
+\author{ Submitted By \\[2mm]
+	\textbf{
+	Sagar Ved Bairwa 201951131
+	\\
+	Vivek Kumar Goyal 201951172
+	\\
+	Yash Jain 201951176
+	}
+	\\[2mm]
+	\hrule
+	
+	 
+	
+}
+
+
+%\raggedbottom
+
+
+%%%%%%%%%%%%%%%%%%%Document %%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\begin{abstract}
+	This is abstract.
+\end{abstract}
+%\tableofcontents
+%\pagestyle{fancy}
+%\pagenumbering{arabic}
+
+%\include{chapter/introduction}	
+\section{Introduction}
+%\section{Introduction}\label{ch:ch1}
+ Programming skill Assessment for academic students is a knowledge analysis Java application whose primary goal is to evaluate the student's performance in programming languages. Every year institutes try to teach new programming languages to their students and students learn some of these of their own. The students know a lot about programming languages but they don’t know how to evaluate their performance. It is basically a programming skill assessment that has admin-defined problem sets. When a student / new learner wants to assess their skill he/she can register for the test and get her/his assessment report. After successful registration of the student, he will be redirected to our quiz system where he can evaluate his/her programming skills. It also has some basic and some advanced features for admin access so the admin can design the quizzes, can define experimental languages, and see everyone's assessment results in comma-separated values(CSV) format. 
+
+The project report is organized as follows. Section 2 provides a literature survey of the internship program. Section 3 shows present the investigation of the internship project. section 4 shows Results and Discussion. Section 5 concludes the analysis of the report and future work.
+
+
+\section{Literature survey}
+The Research starts with a basic understanding of Java programming language. To find a basic understanding of java desktop applications we took the help of Java programming’s official documentation website (\href{https://www.oracle.com/technical-resources/articles/javase/new-tech.html}{https://www.oracle.com/technical-resources/articles/javase/new-tech.html}). Then we get some MySQL database knowledge from MySQL official documentation website (\href{https://docs.oracle.com/en-us/iaas/mysql-database/doc/getting-started.html}{https://docs.oracle.com/en-us/iaas/mysql-database/doc/getting-started.html})and a few youtube channels i.e. codewithharry, programming with mosh. There we get all the necessary information about queries, database creation, table creation, data insertion to the table, delete \& update data from a table, dropping \& truncate the tables, altering a table, etc. These things help us to understand the database properly.
+
+After it, we started our project by designing the database. In the database, we created mainly 5 tables namely AdminData, UserDemographicData, Evolutiontable, Expertise, and Question bank with proper attributes. Then we started to design of fronted part of the project there we use images, text fields, password fields, check boxes, radio buttons, ok buttons, and separators. We defined all the page sizes as 1920 x 1080 px by default except for some tiny dialog boxes.
+
+After it, we started to connect the fronted part with our backend (database). This part becomes a little bit tedious and time-consuming but we try our best to achieve our desired product. 
+
+\section{The Present Investigation}
+We divide our project into three major parts. 
+\begin{enumerate}
+    \item Database creation
+    \item Front-end design
+    \item Back-end Connection
+\end{enumerate}
+Let's discuss the three of the major parts of the research project. 
+\subsection{Database creation}
+we have prior knowledge of database design so before starting to write queries we choose all necessary things that are required to design a database i.e. table names and corresponding attributes. For designing the database, we made the Five most important tables for our \textbf{Programming Skill Assessment for the academic students} project. Here a list of all tables.
+\begin{tcolorbox}
+    \begin{enumerate}
+    \item Demographic Data \\<UID/Name/Dob/gender/mail/…>
+    \item Expertise Data \\ <UID/programming language/level/duration/time/last used>
+    \item Evaluation report \\ <UID/Prog. Lang /level\# / code \#/question \#/ recorded answer/correct answer/decision/score>
+    \item Question Bank \\ <UID/Prog. Lang /level\# / code \#/question \#/op1…op4/correct op/codeTimer / question timer/ score>
+    \item Admin Data \\ <UID / Password /Name>
+\end{enumerate}
+\end{tcolorbox}
+\subsubsection{Admin data table}
+This table contains all the necessary details about Admin. In our research, our domain is basically student oriented so we don't put a lot data about admin. The information we colleccted for   
+\begin{tcolorbox}
+create table if not exists AdminData( \\
+Username varchar(10) not null,\\
+Userpassword varchar(15) not null,
+\\Adminname  varchar(30) not null,
+\\primary key (Username)
+\\);
+\end{tcolorbox}
+\subsubsection{Demographic Details Table}
+Demographic Data: This table contain all the demographic details of a participant. We don’t takeparticipant as a real user of ou application. He / She can only be join our application at the time of self-assessment or institutional assessment. This table contains all the details visible in the following query.
+\begin{tcolorbox}
+     create table if not exists userdemographicdata(\\ participantid varchar(15) not null, \\participantname varchar(50) not null,\\ gender varchar(10) not null,\\ dateofbirth date not null,\\ profession varchar(20) not null,\\ phonenumber varchar(12) not null,\\ email varchar(50) not null,\\ favouritelanguage varchar(20) not null, \\highesteducation varchar(30) not null, \\ state varchar(30) not null,\\ country varchar(30) not null, \\ fieldofinterest varchar(100) not null,\\ termsandconditions varchar(50) not null,\\ score int(5),\\ primary key(participantid)\\);
+\end{tcolorbox}
+\subsubsection{Expertise Data Table}
+When a participant completes his registration, he / she will be redirected to the pre-self assessment for the programming languages. There participant need to fill all the details for the table. After successful pre-self assessment He will be redirected to a new frame where our quiz is loaded. Here is the MySQL Query for creation the Expertise Details tables.
+\begin{tcolorbox}
+create table if not exists expertise( \\
+participantid varchar(10) not null, \\
+programminglanguage varchar(15) not null,\\
+languagelevel varchar(15) not null,\\
+durationofuse varchar(30) not null,\\
+exacttime varchar(30) not null,\\
+lastused varchar(30) not null,\\
+primary key(participantid)\\
+);
+\end{tcolorbox}
+
+\section{Conclusion and Future Work}
+We have learned many concepts through the usage of data
+structures and logical thinking of how to understand the
+question and respond to it through the agents present in the
+environment.
+\section*{Acknowlegement}
+We would like to thank our instructor Mr Pramit mazumdar for
+providing us with this opportunity to work on these concept
+oriented problems, by solving these we have learned alot
+concepts in the process.
+%\appendix	
+%\include{chapter/app1}	
+
+%\singlespacing
+\section{REFERENCES} \\
+Artificial Intelligence: a Modern Approach, Russell and
+Norvig (Fourth edition) Chapter 1, 2, 3 2] \\
+https://www.sciencedirect.com/science/article/abs/pii/0167819
+189901063 \\
+https://www.mygreatlearning.com/blog/best-first-search-bfs/ \\
+https://www.geeksforgeeks.org/a-search-algorithm/ \\
+https://en.wikipedia.org/wiki/A*searchalgorithm \\
+
+\bibliographystyle{IEEEtran}	
+
+\end{document}

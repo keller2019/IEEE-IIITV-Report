@@ -1,0 +1,161 @@
+@article{hell2007grain,
+  title={Grain: a stream cipher for constrained environments},
+  author={Hell, Martin and Johansson, Thomas and Meier, Willi},
+  journal={International journal of wireless and mobile computing},
+  volume={2},
+  number={1},
+  pages={86--93},
+  year={2007},
+  publisher={Inderscience Publishers}
+}
+
+@inproceedings{feldhofer2007comparison,
+	title={Comparison of low-power implementations of trivium and grain},
+	author={Feldhofer, Martin},
+	booktitle={The State of the Art of Stream Ciphers, Workshop Record},
+	pages={236--246},
+	year={2007}
+}
+
+@generic{Jiao2020,
+	abstract = {Stream cipher is an important branch of symmetric cryptosystems, which takes obvious advantages in speed and scale of hardware implementation. It is suitable for using in the cases of massive data transfer or resource constraints, and has always been a hot and central research topic in cryptography. With the rapid development of network and communication technology, cipher algorithms play more and more crucial role in information security. Simultaneously, the application environment of cipher algorithms is increasingly complex, which challenges the existing cipher algorithms and calls for novel suitable designs. To accommodate new strict requirements and provide systematic scientific basis for future designs, this paper reviews the development history of stream ciphers, classifies and summarizes the design principles of typical stream ciphers in groups, briefly discusses the advantages and weakness of various stream ciphers in terms of security and implementation. Finally, it tries to foresee the prospective design directions of stream ciphers.},
+	author = {Lin Jiao and Yonglin Hao and Dengguo Feng},
+	doi = {10.1007/s11432-018-9929-x},
+	issn = {18691919},
+	issue = {3},
+	journal = {Science China Information Sciences},
+	title = {Stream cipher designs: a review},
+	volume = {63},
+	year = {2020},
+}
+
+@article{banik2021atom,
+	title={Atom: A Stream Cipher with Double Key Filter},
+	author={Banik, Subhadeep and Caforio, Andrea and Isobe, Takanori and Liu, Fukang and Meier, Willi and Sakamoto, Kosei and Sarkar, Santanu},
+	journal={IACR Transactions on Symmetric Cryptology},
+	pages={5--36},
+	year={2021}
+}
+
+@InProceedings{10.1007/978-3-642-03317-9_1,
+	author="Aumasson, Jean-Philippe
+	and Dinur, Itai
+	and Meier, Willi
+	and Shamir, Adi",
+	editor="Dunkelman, Orr",
+	title="Cube Testers and Key Recovery Attacks on Reduced-Round MD6 and Trivium",
+	booktitle="Fast Software Encryption",
+	year="2009",
+	publisher="Springer Berlin Heidelberg",
+	address="Berlin, Heidelberg",
+	pages="1--22",
+	abstract="CRYPTO 2008 saw the introduction of the hash function MD6 and of cube attacks, a type of algebraic attack applicable to cryptographic functions having a low-degree algebraic normal form over GF(2). This paper applies cube attacks to reduced round MD6, finding the full 128-bit key of a 14-round MD6 with complexity 222 (which takes less than a minute on a single PC). This is the best key recovery attack announced so far for MD6. We then introduce a new class of attacks called cube testers, based on efficient property-testing algorithms, and apply them to MD6 and to the stream cipher Trivium. Unlike the standard cube attacks, cube testers detect nonrandom behavior rather than performing key extraction, but they can also attack cryptographic schemes described by nonrandom polynomials of relatively high degree. Applied to MD6, cube testers detect nonrandomness over 18 rounds in 217 complexity; applied to a slightly modified version of the MD6 compression function, they can distinguish 66 rounds from random in 224 complexity. Cube testers give distinguishers on Trivium reduced to 790 rounds from random with 230 complexity and detect nonrandomness over 885 rounds in 227, improving on the original 767-round cube attack.",
+	isbn="978-3-642-03317-9"
+}
+
+@article{wang2013improved,
+	title={The Improved Cube Attack on Grain-v1.},
+	author={Wang, Yongjuan and Ding, Liren and Han, Wenbao and Wang, Xiangyu},
+	journal={IACR Cryptol. ePrint Arch.},
+	volume={2013},
+	pages={417},
+	year={2013}
+}
+@article{1930-5346_2019_0_107,
+	title = {Some results on lightweight stream ciphers Fountain v1, Lizard},
+	journal = {Advances in Mathematics of Communications},
+	volume = {0},
+	number = {},
+	pages = {-},
+	year = {2020},
+	author = {Ravi Anand, Dibyendu Roy, Santanu Sarkar},
+}
+@article{,
+   abstract = {A new stream cipher, Grain, is proposed. The design targets hardware environments where gate count, power consumption and memory is very limited. It is based on two shift registers and a nonlinear output function. The cipher has the additional feature that the speed can be increased at the expense of extra hardware. The key size is 80 bits and no attack faster than exhaustive key search has been identified. The hardware complexity and throughput compares favourably to other hardware oriented stream ciphers like E0 and A5/1.},
+   author = {Martin Hell and Thomas Johansson and Willi Meier},
+   title = {Grain-A Stream Cipher for Constrained Environments},
+   url = {www.ecrypt.eu.org/stream,},
+}
+@article{,
+   abstract = {It has been common knowledge that for a stream cipher to be secure against generic TMD tradeoff attacks, the size of its internal state in bits needs to be at least twice the size of the length of its secret key. In FSE 2015, Armknecht and Mikhalev however proposed the stream cipher Sprout with a Grain-like architecture, whose internal state was equal in size with its secret key and yet resistant against TMD attacks. Although Sprout had other weaknesses, it germinated a sequence of stream cipher designs like Lizard and Plantlet with short internal states. Both these designs have had cryptanalytic results reported against them. In this paper, we propose the stream cipher Atom that has an internal state of 159 bits and offers a security of 128 bits. Atom uses two key filters simultaneously to thwart certain cryptanalytic attacks that have been recently reported against keystream generators. In addition, we found that our design is one of the smallest stream ciphers that offers this security level, and we prove in this paper that Atom resists all the attacks that have been proposed against stream ciphers so far in literature. On the face of it, Atom also builds on the basic structure of the Grain family of stream ciphers. However, we try to prove that by including the additional key filter in the architecture of Atom we can make it immune to all cryptanalytic advances proposed against stream ciphers in recent cryptographic literature.},
+   author = {Subhadeep Banik and Andrea Caforio and Takanori Isobe and Fukang Liu and Willi Meier and Kosei Sakamoto and Santanu Sarkar},
+   doi = {10.13154/tosc.v0.i0.0-0},
+   issue = {0},
+   keywords = {Grain family,Lightweight Cryptography,Short State Stream Cipher},
+   pages = {0-0},
+   title = {Atom: A Stream Cipher with Double Key Filter; Atom: A Stream Cipher with Double Key Filter},
+   volume = {0},
+}
+@article{Banik2021,
+   abstract = {It has been common knowledge that for a stream cipher to be secure against generic TMD tradeoff attacks, the size of its internal state in bits needs to be at least twice the size of the length of its secret key. In FSE 2015, Armknecht and Mikhalev however proposed the stream cipher Sprout with a Grain-like architecture, whose internal state was equal in size with its secret key and yet resistant against TMD attacks. Although Sprout had other weaknesses, it germinated a sequence of stream cipher designs like Lizard and Plantlet with short internal states. Both these designs have had cryptanalytic results reported against them. In this paper, we propose the stream cipher Atom that has an internal state of 159 bits and offers a security of 128 bits. Atom uses two key filters simultaneously to thwart certain cryptanalytic attacks that have been recently reported against keystream generators. In addition, we found that our design is one of the smallest stream ciphers that offers this security level, and we prove in this paper that Atom resists all the attacks that have been proposed against stream ciphers so far in literature. On the face of it, Atom also builds on the basic structure of the Grain family of stream ciphers. However, we try to prove that by including the additional key filter in the architecture of Atom we can make it immune to all cryptanalytic advances proposed against stream ciphers in recent cryptographic literature.},
+   author = {Subhadeep Banik and Andrea Caforio and Takanori Isobe and Fukang Liu and Willi Meier and Kosei Sakamoto and Santanu Sarkar},
+   doi = {10.46586/TOSC.V2021.I1.5-36},
+   issn = {2519-173X},
+   issue = {1},
+   journal = {IACR Transactions on Symmetric Cryptology},
+   keywords = {Grain family,Lightweight Cryptography},
+   month = {3},
+   pages = {5-36},
+   publisher = {Ruhr-Universitat Bochum},
+   title = {Atom: A Stream Cipher with Double Key Filter},
+   volume = {2021},
+   url = {https://tosc.iacr.org/index.php/ToSC/article/view/8832},
+   year = {2021},
+}
+@article{Banik2021,
+   abstract = {It has been common knowledge that for a stream cipher to be secure against generic TMD tradeoff attacks, the size of its internal state in bits needs to be at least twice the size of the length of its secret key. In FSE 2015, Armknecht and Mikhalev however proposed the stream cipher Sprout with a Grain-like architecture, whose internal state was equal in size with its secret key and yet resistant against TMD attacks. Although Sprout had other weaknesses, it germinated a sequence of stream cipher designs like Lizard and Plantlet with short internal states. Both these designs have had cryptanalytic results reported against them. In this paper, we propose the stream cipher Atom that has an internal state of 159 bits and offers a security of 128 bits. Atom uses two key filters simultaneously to thwart certain cryptanalytic attacks that have been recently reported against keystream generators. In addition, we found that our design is one of the smallest stream ciphers that offers this security level, and we prove in this paper that Atom resists all the attacks that have been proposed against stream ciphers so far in literature. On the face of it, Atom also builds on the basic structure of the Grain family of stream ciphers. However, we try to prove that by including the additional key filter in the architecture of Atom we can make it immune to all cryptanalytic advances proposed against stream ciphers in recent cryptographic literature.},
+   author = {Subhadeep Banik and Andrea Caforio and Takanori Isobe and Fukang Liu and Willi Meier and Kosei Sakamoto and Santanu Sarkar},
+   doi = {10.46586/TOSC.V2021.I1.5-36},
+   issn = {2519173X},
+   issue = {1},
+   journal = {Cryptology ePrint Archive},
+   keywords = {Grain family,Lightweight Cryptography,Short State Stream Cipher},
+   pages = {5-36},
+   publisher = {Ruhr-Universitat Bochum},
+   title = {Atom: A Stream Cipher with Double Key Filter},
+   volume = {2021},
+   year = {2021},
+}
+@article{nearcollion,
+   abstract = {Grain v1 is one of the 7 finalists selected in the final portfolio by the eSTREAM project. It has an elegant and compact structure, especially suitable for a constrained hardware environment. Though a number of potential weaknesses have been identified, no key recovery attack on the original design in the single key model has been found yet. In this paper, we propose a key recovery attack, called near collision attack, on Grain v1. The attack utilizes the compact NFSR-LFSR combined structure of Grain v1 and works even if all of the previous identified weaknesses have been sewed and if a perfect key/IV initialization algorithm is adopted. Our idea is to identify near collisions of the internal states at different time instants and restore the states accordingly. Combined with the BSW sampling and the non-uniform distribution of internal state differences for a fixed keystream difference, our attack has been verified on a reduced version of Grain v1 in experiments. An ex-trapolation of the results under some assumption indicates an attack on Grain v1 for any fixed IV in 2 71.4 cipher ticks after the pre-computation of 2 73.1 ticks, given 2 62.8-bit memory and 2 67.8 keystream bits, which is the best key recovery attack against Grain v1 so far. Hopefully, it provides some new insights on such compact stream ciphers.},
+   author = {Bin Zhang and Zhenqi Li and Dengguo Feng and Dongdai Lin},
+   keywords = {Cryptanalysis,Grain,Near collision,Stream ciphers},
+   title = {Near Collision Attack on the Grain v1 Stream Cipher ⋆},
+}
+@article{Banik2021,
+   abstract = {It has been common knowledge that for a stream cipher to be secure against generic TMD tradeoff attacks, the size of its internal state in bits needs to be at least twice the size of the length of its secret key. In FSE 2015, Armknecht and Mikhalev however proposed the stream cipher Sprout with a Grain-like architecture, whose internal state was equal in size with its secret key and yet resistant against TMD attacks. Although Sprout had other weaknesses, it germinated a sequence of stream cipher designs like Lizard and Plantlet with short internal states. Both these designs have had cryptanalytic results reported against them. In this paper, we propose the stream cipher Atom that has an internal state of 159 bits and offers a security of 128 bits. Atom uses two key filters simultaneously to thwart certain cryptanalytic attacks that have been recently reported against keystream generators. In addition, we found that our design is one of the smallest stream ciphers that offers this security level, and we prove in this paper that Atom resists all the attacks that have been proposed against stream ciphers so far in literature. On the face of it, Atom also builds on the basic structure of the Grain family of stream ciphers. However, we try to prove that by including the additional key filter in the architecture of Atom we can make it immune to all cryptanalytic advances proposed against stream ciphers in recent cryptographic literature.},
+   author = {Subhadeep Banik and Andrea Caforio and Takanori Isobe and Fukang Liu and Willi Meier and Kosei Sakamoto and Santanu Sarkar},
+   doi = {10.46586/TOSC.V2021.I1.5-36},
+   issn = {2519173X},
+   issue = {1},
+   journal = {IACR Transactions on Symmetric Cryptology},
+   keywords = {Grain family,Lightweight Cryptography,Short State Stream Cipher},
+   pages = {5-36},
+   publisher = {Ruhr-Universitat Bochum},
+   title = {Atom: A stream cipher with double key filter},
+   volume = {2021},
+   url = {https://www.researchgate.net/publication/350489582_Atom_A_Stream_Cipher_with_Double_Key_Filter},
+   year = {2021},
+}
+@web_page{grainwebpage,
+   title = {Grain (cipher) - Wikipedia},
+   url = {https://en.wikipedia.org/wiki/Grain_(cipher)},
+}
+@article{,
+   abstract = {A new stream cipher, Grain, is proposed. The design targets hardware environments where gate count, power consumption and memory is very limited. It is based on two shift registers and a nonlin-ear filter function. The cipher has the additional feature that the speed can be increased at the expense of extra hardware. The key size is 80 bits and no attack faster than exhaustive key search has been identified. The hardware complexity and throughput compares favourably to other hardware oriented stream ciphers like E0 and A5/1.},
+   author = {Martin Hell and Thomas Johansson and Willi Meier},
+   title = {Grain-A Stream Cipher for Constrained Environments},
+}
+@web_page{streamcipher,
+   title = {what is a stream cipher?},
+   url = {https://searchsecurity.techtarget.com/definition/stream-cipher},
+}
+@article{,
+   abstract = {A new stream cipher, Grain, is proposed. The design targets hardware environments where gate count, power consumption and memory is very limited. It is based on two shift registers and a nonlin-ear filter function. The cipher has the additional feature that the speed can be increased at the expense of extra hardware. The key size is 80 bits and no attack faster than exhaustive key search has been identified. The hardware complexity and throughput compares favourably to other hardware oriented stream ciphers like E0 and A5/1.},
+   author = {Martin Hell and Thomas Johansson and Willi Meier},
+   title = {Grain-A Stream Cipher for Constrained Environments},
+}
+@web_page{,
+   title = {Stream Ciphers Latest Research Papers | ScienceGate},
+   url = {https://www.sciencegate.app/keyword/71011},
+}

@@ -1,0 +1,170 @@
+\section{Atom Cipher}
+Armknecht and Mikhalev [\cite{banik2021atom}] proposed the stream cipher Sprout with a Grain-like architecture, whose internal state was equal in size with its secret key and yet resistant against TMD attacks.Although Sprout had other weaknesses, it germinated a sequence of stream cipher designs like Lizard and Plantlet with short internal states.Both these designs have had cryptanalytic results reported against them. In this paper, we propose the stream cipher Atom that has an internal state of 159 bits and offers a security of 128 bits. Atom uses two key filters simultaneously to thwart certain cryptanalytic attacks that have been recently reported against keystream generators. \\[2mm] In addition, we found that the design is one of the smallest stream ciphers that offers this security level. Atom resists all the attacks that have been proposed against stream ciphers so far in literature. On the face of it, Atom also builds on the basic structure of the Grain family of stream ciphers.
+\section{Design Specification}
+Atom is composed of a linear feedback shift
+register (LFSR) and n nonlinear feedback shift
+register (NFSR). In Atom, the size of secret key
+k is 128 bits. Atom also have an initialization
+phase and a key stream phase.
+\subsection{Building Blocks}
+Atom’s structure combined with LFSR
+and NFSR connected through a Xor
+gate. The length of NFSR and LFSR are
+90 bits and 69 bits, respectively. At
+clock t = 0,1,…, denote the contents in
+NFSR and LFST by $B^t = (b^t_0 ,….,b^t_{89} )$ and
+$L^t = (l^t_0 ,….,l^t_{68} )$, respectively.
+\subsubsection*{Output Function}
+The output function
+is a sum of linear terms, a quadratic
+bent function and another 9-variable
+function h.
+\\[2mm]
+$\label{eq:3}
+O(B_t,L_t) = b^t_{1} \oplus  b^t_{5} \oplus  b^t_{11} \oplus  b^t_{22} \oplus  b^t_{36} \oplus  b^t_{53} \oplus  b^t_{72} \oplus  b^t_{80} \oplus  b^t_{84}\\ \oplus  l^t_{5}l^t_{16} \oplus  l^t_{13}l^t_{15} \oplus  l^t_{30}l^t_{42} \oplus  l^t_{22}l^t_{67} \oplus  h(l^t_{7},l^t_{33},l^t_{38},l^t_{50},l^t_{59},l^t_{62},b^t_{85},b^t_{41},b^t_{9})
+$
+\\[2mm]
+\begin{figure}[h]
+	\centering
+
+	\includegraphics[width=200px]{atom01.png}
+	\caption{The LFSR is divided into two part.}
+		\label{fig:atom01}
+\end{figure}
+During Initialization, the 69-bit LFSR is
+partitioned into 60 and 9 bits (\ref{fig:atom01}) with each
+part updated by its own update logic.During the Keystream generation
+phase, both these parts function as a
+single 69-bit LFSR.
+
+Where $h(x) = h(x_0 ,x_1 ,x_2 ,x_3 ,x_4 ,x_5 ,x_6 ,x_7 ,x_8 )$
+is  defined as [\ref{eq:3}] --
+\\[2mm]
+$ \label{eq:3} 
+h(x) = x_0x_1x_2x_7x_8  \oplus  x_0x_1x_2x_7  \oplus  x_0x_1x_2x_8  \oplus  x_0x_1x_2  \oplus  x_0x_1x_3x_7x_8 
+\oplus x_0x_1x_3x_7  \oplus  x_0x_1x_4x_7x_8   \oplus  x_0x_1x_4x_7  \oplus  x_0x_1x_4x_8  \oplus  x_0x_1x_4 
+\oplus x_0x_1x_5x_7x_8  \oplus  x_0x_1x_5x_7  \oplus  x_0x_1x_6x_7x_8  \oplus  x_0x_1x_6x_8 
+\oplus  x_0x_1x_7x_8  \oplus  x_0x_1x_8  \oplus  x_0x_2x_3x_7x_8  \oplus  x_0x_2x_3x_7  \oplus  x_0x_2x_3x_8 
+\oplus x_0x_2x_3  \oplus  x_0x_2x_4x_7x_8   \oplus  x_0x_2x_4x_8  \oplus  x_0x_2x_5x_7x_8  \oplus  x_0x_2x_5x_7 
+\oplus x_0x_2x_5x_8  \oplus  x_0x_2x_5  \oplus  x_0x_2x_6x_7x_8   \oplus  x_0x_2x_6x_8  \oplus  x_0x_2x_7x_8 
+\oplus x_0x_2x_8  \oplus  x_0x_3x_4x_7x_8  \oplus  x_0x_3x_4x_7  \oplus  x_0x_3x_5x_7x_8  \oplus   x_0x_3x_5x_7 
+\oplus x_0x_3x_6x_7x_8  \oplus  x_0x_3x_6x_7  \oplus  x_0x_3x_8  \oplus  x_0x_3  \oplus  x_0x_4x_5x_7x_8 
+\oplus x_0x_4x_5x_7   \oplus  x_0x_4x_6x_7x_8  \oplus  x_0x_4x_6x_8  \oplus  x_0x_4x_7  \oplus  x_0x_4 
+\oplus x_0x_5x_6x_7x_8  \oplus  x_0x_5x_6x_7  \oplus  x_0x_5x_7x_8  \oplus  x_0x_5x_7  \oplus  x_0x_6x_7 
+\oplus x_0x_6x_8  \oplus  x_0x_7x_8   \oplus  x_1x_2x_3x_7x_8  \oplus  x_1x_2x_4x_7x_8  \oplus  x_1x_2x_4x_8 
+\oplus x_1x_2x_5x_7x_8  \oplus  x_1x_2x_6x_7x_8  \oplus   x_1x_2x_6x_8  \oplus  x_1x_2x_7  \oplus  x_1x_2x_8 
+\oplus x_1x_2  \oplus  x_1x_3x_4x_7x_8  \oplus  x_1x_3x_5x_7x_8  \oplus   x_1x_3x_6x_7x_8  \oplus  x_1x_3x_7 
+\oplus x_1x_4x_5x_7x_8  \oplus  x_1x_4x_5x_8  \oplus  x_1x_4x_6x_7x_8  \oplus  x_1x_4x_7  \oplus  x_1x_4  
+\oplus x_1x_5x_6x_7x_8  \oplus  x_1x_5x_6x_7  \oplus  x_1x_5x_7x_8  \oplus  x_1x_5x_7  \oplus  x_1x_5x_8  
+\oplus x_1x_6x_7  \oplus  x_1x_8  \oplus  x_1  \oplus  x_2x_3x_4x_7x_8  \oplus  x_2x_3x_5x_7x_8  \oplus  x_2x_3x_6x_7x_8  
+\oplus x_2x_4x_5x_7x_8  \oplus  x_2x_4x_5x_8  \oplus  x_2x_4x_6x_7x_8  \oplus  x_2x_4x_7x_8  \oplus  x_2x_4x_8  
+\oplus x_2x_5x_6x_7x_8  \oplus  x_2x_5x_6x_8  \oplus  x_2x_5x_8  \oplus  x_2x_6x_7x_8  \oplus  x_2x_6x_8  
+\oplus x_2x_7x_8  \oplus  x_2  \oplus  x_3x_4x_5x_7x_8  \oplus  x_3x_4x_5x_7  \oplus  x_3x_4x_6x_7x_8  
+\oplus x_3x_4x_6x_7  \oplus  x_3x_5x_6x_7x_8  \oplus  x_3x_5x_7x_8  \oplus  x_3x_6x_7x_8  \oplus  x_3x_6x_7  
+\oplus x_3x_7  \oplus  x_3  \oplus  x_4x_5x_6x_7x_8  \oplus  x_4x_5x_6x_8  \oplus  x_4x_6x_7x_8  \oplus  x_4x_6x_8  
+\oplus x_4x_7  \oplus  x_5x_7x_8  \oplus  x_5  \oplus  x_6  \oplus  x_7x_8  \oplus  x_7  \oplus  x_8  \oplus  1  $
+\\[2mm]
+Note:-
+h is a (9,5,3,240) function, where
+9 Variable,
+5 Algebraic degree,
+3 Correlation Immunity,
+240 non-linearty.
+It has one of highest non-linearities
+among all 9 variable Boolean Function.
+Bent Function are known to have
+highest non-linearity for even variable
+function and provide adequate
+protection.
+
+\subsubsection*{NFSR}
+The defination of the update function $G(B^t)$ used in NFSR is specified as follows.
+\\[2mm]
+$
+	G(B^t)= b^t_{0} \oplus  b^t_{24} \oplus  b^t_{49} \oplus  b^t_{79} \oplus  b^t_{84} \oplus  b^t_{3}b^t_{59} \oplus  b^t_{10}b^t_{12} \oplus  b^t_{15}b^t_{16} \oplus  b^t_{25}b^t_{53} \oplus  b^t_{35}b^t_{42} \oplus  b^t_{55}b^t_{58} \oplus  b^t_{60}b^t_{74} \oplus  b^t_{20}b^t_{22}b^t_{23} \oplus  b^t_{62}b^t_{68}b^t_{72} \oplus  b^t_{77}b^t_{80}b^t_{81}b^t_{83}
+$
+\\[2mm]
+\subsubsection*{LFSR}
+The update function $F(L^t)$ used in LFSR is defined as below: it is based on a
+primitive polynomial over GF(2) and hence always ensures a period of $2^{69} - 1$.
+\begin{equation}
+	F(L^t) = l^t_{0} \oplus  l^t_{5} \oplus  l^t_{12} \oplus  l^t_{22} \oplus  l^t_{37} \oplus  l^t_{45} \oplus  l^t_{58}
+\end{equation}
+
+\section{Initialization Phase}
+Denote the 128-bit secret key by $k = (k_0 , . . . , k_{127} )$ and the 128-bit initial value by
+$IV = (IV_0 , . . . , IV_{127} )$. In addition, there will be extra 22-bit padding denoted by $P D = (P D_0 , . . . , P D_{21} ) = 1^{22} $(all one string). The two registers are initialized based on Equations
+(\ref{eq:1}) and (\ref{eq:2}), respectively.
+\begin{equation}\label{eq:1}
+	b^0_i = IV_i  \quad (0 \leq i \leq 89)
+\end{equation}
+\begin{equation}\label{eq:2}
+l_i^0 = \left\{\begin{matrix}
+IV_{i+90}& \quad (0 \leq i \leq 37) \\ 
+PD_{i-38}&\quad (38 \leq i \leq 59) \\
+0 & \quad (60 \leq i \leq 68)
+\end{matrix}\right.
+\end{equation}
+After the two registers are initialized, the state at clock $t\; (0 \leq t \leq 510)$ is updated as
+follows:
+\begin{align*}
+z^t \quad &= \quad O(B_t,L_t),\\ 
+cnt \quad &= \quad l^t_{62}||l^t_{63}||l^t_{64}||l^t_{65}||l^t_{66}||l^t_{67}||l^t_{68}, \\ 
+b^{t+1}_{89} \quad &= \quad G(B^t)\oplus l^t_{0} \oplus k_{cnt} \oplus z^t  \\ 
+b^{t+1}_{i} \quad &= \quad b^{t}_{i+1} \; (0 \leq i \leq 88)\\ 
+l^{t+1}_{59} \quad &= \quad F(L^t) \oplus z^t\\
+l^{t+1}_{i} \quad &= \quad l^{t}_{i+1} \; (0 \leq i \leq 58)\\
+l^{t+1}_{i+60} \quad &= \quad ((t+1)>>(8-i) \land  1) \; (0 \leq i \leq 8)
+\end{align*}
+In the initialization phase, LFSR’s 60-bit
+part is updated using the LFSR logic and
+the 9 bit part operates as a decimal up-
+counter. The last 7 bit when
+interpreted as a decimal no. (cnt) alsoform the index of the key bit used in
+the NFSR update.\\[2mm]
+
+$l^{t+1}_{i+60} \quad = \quad ((t+1)>>(8-i))$  where $i \in [0,8] $
+\\[2mm]
+$(t+1)^{th}$ cycle the LFSR bit 60 to 68 are
+updated with the 8 bits of decimal up-
+counter t+1. The 60 th LFSR location gets
+the MSB of the counter and 68 th
+location gets the LSB.
+\section{Key Generation}
+After the initialization phase,Illustration of Initialization phase
+NFSR$ B^{511} = (b^{511}_0 , . . . b^{511}_{89} )$ and LFSR
+$L^{511} = (l^{511}_0 , . . . ,l_{511}^{68} )$. The initialization
+phase had 511 rounds, the last 9 bits of
+the LFST at the beginning of the
+keystream generation phase will
+always be the all 1 vector. The first
+keystream used for plaintext
+encryption is $z^{511}$.\\[2mm]
+\begin{figure}[h]
+	\centering
+	
+	\includegraphics[width=200px]{atom02.png}
+	\caption{Illustration of the initialization phase.}
+	\label{fig:atom02}
+\end{figure}
+\\[2mm]
+Note :- amount of keystream
+extractable from a single key-IV pair to
+2 64 bits.
+\begin{align*}
+z^t \quad &= \quad O(B_t,L_t),\\ 
+cnt \quad &= \quad l^t_{62}||l^t_{63}||l^t_{64}||l^t_{65}||l^t_{66}||l^t_{67}||l^t_{68}, \\ 
+b^{t+1}_{89} \quad &= \quad G(B^t)\oplus l^t_{0} \oplus k_{cnt} \oplus k_{t\%128}  \\ 
+b^{t+1}_{i} \quad &= \quad b^{t}_{i+1} \; (0 \leq i \leq 88)\\ 
+l^{t+1}_{59} \quad &= \quad F(L^t) \oplus z^t\\
+l^{t+1}_{i} \quad &= \quad l^{t}_{i+1} \; (0 \leq i \leq 67)
+\end{align*}
+The cnt sequence is derived from interpreting the last 7 bits of the LFSR as a decimal number. During the initialization phase, it is simply the i
+mod 128 sequence with I ranging from 0 to 510. The LFSR has a period of $2^{69} -1$, so does the cnt sequence. This garbles the order of key bits. it also provides
+immunity.
+
+%\section {Code Execution}
+%\begin{strip}
+%	\hrule
+%	\lstinputlisting[caption=Atom implimentation in c ,language=C,style=chstyle]{Codes/atom-o.c}
+%\end{strip}

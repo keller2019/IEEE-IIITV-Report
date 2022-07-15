@@ -1,0 +1,89 @@
+\section{Cube Finding Algoritham For Grain V1}
+Cube Finding Algoritham is an algorithm based on careful selection of Cube
+variables which can test the non-randomness of a cipher (or a Boolean function).
+The concept of Cube Finding Algoritham was first introduced by Aumasson et al. \cite{10.1007/978-3-642-03317-9_1} in 2009.
+The main idea behind designing a Cube Finding Algoritham on a cipher (or a Boolean function)
+is to select the Cube variables in such a way that if there is any non-randomness
+in the cipher (or a Boolean function) the non-randomness must be reflected in
+the corresponding superpoly. By using this kind of testing procedure one can check
+several properties of a function such as the presence of any monomial in the function,
+presence of neutral variables in the function, upper bound of the degree of the
+function, and balancedness of the function, etc. 
+
+\subsection{Cube Attack}
+Throughout this paper, all polynomials have coefficients in GF(2).\\ let IV = $(v_1,v_2,...,v_m)$ and K = $(x_1,x_2,...,x_n)$ , $F_i(K,IV) = Y_i$ denote the $i^{th}$ output bit, if U =  $\{v_{i_1},v_{i_2},...,v_{i_k}\} \subset \{v_1,v_2,...,v_m\}$ has been chosen then $i^{th}$ output bit can been represented as 
+\begin{multline}
+F_i(x_1,x_2,...,x_n,v_1,v_2,...,v_m) = v_{i_1},v_{i_2},...,v_{i_k}\\P(x_1,x_2,...,x_n,V)+Q(x_1,x_2,...,x_n,v_1,v_2,...,v_m)
+\end{multline}
+\begin{question}
+	V = $\{ v_1,v_2,...,v_m \} / U $, $P ( \cdot )$ is linear polynomial in $\{x_1,x_2,...,x_n \} \bigcup  V$ , and does not contain any common variable with $v_{i_1},v_{i_2},...,v_{i_k}$ , the polynomial Q misses at least one variable form $v_{i_1},v_{i_2},...,v_{i_k}$.
+\end{question}
+Let C be the set of points where the variables
+in $\{ x_1,x_2,...,x_n \} \bigcup V $are fixed and the variables in U are allowed to take all possible
+combination of values. Then
+\begin{multline}\sum_{C} F_i(x_1,x_2,...,x_n,v_1,v_2,...,v_m) \\= \sum_{C}v_{i_1},v_{i_2},...,v_{i_k}P(x_1,x_2,...,x_n,V) + \\\sum_{C}Q(x_1,x_2,...,x_n,v_1,v_2,...,v_m)\end{multline}
+ \begin{theorm}
+ 	For any polynomial $F_i$ and subset U,\\ $$\sum_C P(\cdot) = P(\cdot) mod 2$$
+ \end{theorm}
+\textbf{Proof:} \\
+For the polynomial Q is such that none of the terms in Q have the monomial
+$v_{i_1},v_{i_2},...,v_{i_k}$ as a factor, summing each of terms in Q over all the $2^k$ possible vectors,the sum value is 0, hence $$\sum_{C}Q=0$$ on the other hand, the coefficient of $P (\cdot)$ in the summation is 1 for only one case $v_{i_1}=v_{i_2}=v_{i_k}=1$ . \\
+According to Theorem,
+\begin{multline}\sum_{C} F_i(x_1,x_2,...,x_n,v_1,v_2,...,v_m) \\= \sum_{C}v_{i_1},v_{i_2},...,v_{i_k}P(x_1,x_2,...,x_n,V) + \\\sum_{C}Q(x_1,x_2,...,x_n,v_1,v_2,...,v_m)\end{multline}
+\cite{wang2013improved}
+\subsection{Cube attack on Grain-V1}
+The main goal of Cube Attack is to find sufficiently U , then we may be able to
+obtain linearity polynomials $P(\cdot)$ . Through query to the cipher obtain the value of
+$P(\cdot)$ , and with sufficient number of linearly independent relations in the key bits,
+the attacker can easily recover the key K via Gaussian elimination. Cube Attack is
+split into two stages:
+\subsubsection{The Preprocessing Stage}
+In order to find $U$ , we use a linearity check approach, the $IV$ s are formed by
+allowing variables in $U$ to take all possible combinations of values while keeping
+variables in$ V  = IV/U$ fixed to 0. After the selection of U , then we take 100 random
+pairs of keys $(X,Y)$  and check whether 
+\begin{multline} \label{eq:cube2}
+	\sum_{IV \in C} F_i(X+Y,IV) = \sum_{IV \in C} F_i(X,IV)\\ +\sum_{IV \in C} F_i(Y,IV) + \sum_{IV \in C} F_i(0,IV)
+\end{multline}
+If [\ref{eq:cube2}] is satisfied for all the 100 random pairs, then the polynomial $P(\cdot)$ is assumed to
+be linear in key bits 0. The randomized algorithm presented in 0 to find U starting
+with randomly chosen $P(\geq)$  variables and use a linearity test to check whether $P(\cdot)$
+is linear. If |U| is too small, then $P(\cdot)$ is likely to be a nonlinear polynomial in the
+secret variables. In this case, the attacker adds a public variable to U and checks
+again. If |U| is too large, then $P(\cdot)$ will be a constant. And in this case, the attacker
+drops one of the public variables form U and checks again. The first problem of this
+algorithm is that not all U are tested, for it is chosen randomly and starting from a
+random set of variables. The chances of getting U are not expected to be high. So we
+select U by adding IV variables one by one. This process can generate all the U
+which could produce linear relations $P(\cdot)$ .
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=200px]{cube.png}
+	\caption{The Apporch of selecting IV}
+\end{figure}
+
+\\[6mm]
+You can found the cube founding algoritham [\ref{algo:cube}] following.
+\begin{algorithm}[h]
+	\KwIn{Set of IV bits $V = {v_0 , . . . , v_{95} }$, cube size c.}
+	\KwOut{A good cube $C_I \subset V $of size c}	
+	\nl \bf $C_I = \emptyset$;\\
+	\nl \bf for ${i=1}$ to ${i=c}$ do\\
+	\nl \bf \quad for ${j=0}$ to ${j=95}$ do \\
+	\nl \bf \quad \quad $maxround = 0$ ; if $v_j \notin C_I$ then \\
+	\nl \bf \quad \quad \quad $\tilde{\mathbf{C_I}}$ =  $C_I \cup v_j$  ; \\
+	\nl \bf \quad \quad \quad R = round up to which cube sum for cube variables $\tilde{\mathbf{C_I}}$ is zero;\\
+	\nl \bf \quad \quad \quad if $R \geq maxround$ then \\
+	\nl \bf \quad \quad \quad \quad $temp = v_j$ ; \\
+	\nl \bf \quad \quad \quad \quad $maxround = R$; \\
+	\nl \bf \quad \quad \quad end \\
+	\nl \bf \quad \quad \quad $C_I$ = $C_I \cup \{temp\}$\\
+	\nl \bf \quad \quad end \\
+	\nl \bf \quad end \\
+	\nl \bf end \\
+	\nl \bf return $C_I$; \\\
+	
+	\caption{Cube Finding Algoritham \cite{1930-5346_2019_0_107}}
+	\label{algo:cube}
+	
+\end{algorithm}
